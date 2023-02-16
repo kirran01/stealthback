@@ -81,6 +81,10 @@ const verify = async (req, res) => {
     let foundUser = await User.findById(payloadId);
     if (foundUser) {
       res.send(foundUser);
+    } else {
+      return res.status(400).json({
+        message: "no user",
+      });
     }
   } catch (err) {
     res.send(err);
