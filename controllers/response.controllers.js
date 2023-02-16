@@ -1,7 +1,7 @@
 const Response = require("../models/Response.model");
 
 const createResponse = async (req, res) => {
-  const { response, email } = req.body;
+  const { response, email, ticket } = req.body;
   try {
     const createdResponse = await Response.create({
       response,
@@ -15,5 +15,15 @@ const createResponse = async (req, res) => {
     res.send(err);
   }
 };
+const getResponses = async (req, res) => {
+  try {
+    const allResponses = await Response.find();
+    if (allResponses) {
+      res.send(allResponses);
+    }
+  } catch (err) {
+    res.send(err);
+  }
+};
 
-module.exports = { createResponse };
+module.exports = { createResponse, getResponses };
