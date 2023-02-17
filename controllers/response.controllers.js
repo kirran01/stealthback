@@ -1,3 +1,4 @@
+const { trusted } = require("mongoose");
 const Response = require("../models/Response.model");
 
 const createResponse = async (req, res) => {
@@ -25,5 +26,17 @@ const getResponses = async (req, res) => {
     res.send(err);
   }
 };
+const deleteResponse = async (req, res) => {
+  try {
+    const deletedResponse = await Response.deleteOne({_id: req.params.id});
+    if (deletedResponse.deletedCount === 1) {
+      res.send("deleted");
+    } else {
+      res.send("something went wrong 😖 !");
+    }
+  } catch (err) {
+    res.send(err);
+  }
+};
 
-module.exports = { createResponse, getResponses };
+module.exports = { createResponse, getResponses, deleteResponse };
